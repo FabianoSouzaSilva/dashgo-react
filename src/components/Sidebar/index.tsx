@@ -1,28 +1,45 @@
-import { Box, Stack} from "@chakra-ui/react";
-import { RiBarChartBoxLine, RiDashboardLine, RiInputMethodLine, RiUserAddLine } from "react-icons/ri";
-import NavLink from "./NavLink";
-import NavSection from "./NavSection";
+import {
+    Box,
+    Drawer,
+    useBreakpointValue,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    DrawerHeader,
+    DrawerBody
+} from "@chakra-ui/react";
+import { useSidebarDrawer } from "../../contexts/SidebarDrawerContext";
+
+
+import SideBarNav from "./SideBarNav";
 
 export default function Sidebar() {
+
+    const { isOpen, onClose} = useSidebarDrawer();
+
+    const isDrawerSidebar = useBreakpointValue({
+        base: true,
+        lg: false,
+    });
+
+    if (isDrawerSidebar) {
+        return (
+            <Drawer isOpen={isOpen} placement="left" onClose={onClose} >
+                <DrawerOverlay>
+                    <DrawerContent p="4" bg="gray.800">
+                        <DrawerCloseButton mt="6" />
+                        <DrawerHeader >Navegação</DrawerHeader>
+
+                        <DrawerBody >
+                            <SideBarNav />
+                        </DrawerBody>
+                    </DrawerContent>
+                </DrawerOverlay>
+            </Drawer>);
+    }
     return (
-        <Box
-            as="aside"
-            w="64"
-            mr="8"
-        >
-            <Stack
-                spacing="12"
-                align="flex-start"
-            >
-                <NavSection title="GERAL">
-                    <NavLink icon={RiDashboardLine}>Dashboard</NavLink>
-                    <NavLink icon={RiUserAddLine}>Usuários</NavLink>
-                </NavSection>
-                <NavSection title="AUTOMAÇÃO">
-                    <NavLink icon={RiInputMethodLine}>Formulários</NavLink>
-                    <NavLink icon={RiBarChartBoxLine}>Automação</NavLink>
-                </NavSection>
-            </Stack>
+        <Box as="aside" w="64" mr="8" >
+            <SideBarNav />
         </Box>
     );
 }

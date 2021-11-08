@@ -14,7 +14,7 @@ export default function NavSection({title,children}:NavSectionProps){
             color="gray.400"
             fontSize="small"                        
         >
-            Geral
+            {title}
         </Text>
         <Stack spacing="4" mt="8" align="stretch">
             {children}           
