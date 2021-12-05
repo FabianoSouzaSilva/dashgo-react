@@ -36,12 +36,12 @@ export default function Pagination({
     return (
         <Stack direction={["column", "row"]} mt="8" justify="space-between" align="center">
             <Box>
-                <strong>0</strong> - <strong>10</strong> de <strong>100</strong>
+                <strong>0</strong> - <strong>10</strong> de <strong>{totalCountOfRegisters}</strong>
             </Box>
             <Stack direction="row" spacing="2">
                 <>
                 {currentPage > (1 + siblingsCount) && (
-                    <PaginationItem number={1} />
+                    <PaginationItem number={1} onPageChange={onPageChange} />
                 )}
                 {currentPage > (2 + siblingsCount) && (
                     <Text color="gray.500" width="8" textAlign="center"  >...</Text >
@@ -50,13 +50,13 @@ export default function Pagination({
 
                 {previousPages.length > 0 && 
                  previousPages.map(page=>{
-                     return <PaginationItem key={page} number={page} />
+                     return <PaginationItem key={page} number={page} onPageChange={onPageChange} />
                  })   
                 }
-                <PaginationItem number={currentPage} IsCurrent />
+                <PaginationItem number={currentPage} onPageChange={onPageChange} IsCurrent />
                 {nextPages.length > 0 && 
                  nextPages.map(page=>{
-                     return <PaginationItem key={page} number={page} />
+                     return <PaginationItem key={page} number={page} onPageChange={onPageChange} />
                  })   
                 }
                 
@@ -66,7 +66,7 @@ export default function Pagination({
                     {(currentPage + 1 + siblingsCount) < lastPage && (
                         <Text color="gray.500" width="8" textAlign="center"  >...</Text>
                     )}
-                    <PaginationItem number={lastPage} />
+                    <PaginationItem number={lastPage} onPageChange={onPageChange} />
                     </>
                 )}
             
